@@ -1,0 +1,67 @@
+@import "colors";
+@import "desktop";
+
+.cardWrapper {
+  color: $DarkGrayishBlue;
+  width: 295px;
+  max-width: 295px;
+  @include desktop {
+    width: 450px;
+    max-width: 450px;
+  }
+  .itemsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    .done-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px;
+      height: 20px;
+      color: $DarkGrayishBlue;
+      font-size: 14px;
+    }
+  }
+  .filterTodos {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    padding: 10px;
+    .filter {
+      cursor: pointer;
+    }
+    .filterActive {
+      color: $VeryDarkDesaturatedBlue;
+      font-weight: bold;
+    }
+  }
+  .mobile-card {
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+}
+// dark:
+.cardWrapper.dark {
+  // color: $VeryDarkGrayishBlue;
+  .itemsWrapper {
+    background-color: $VeryDarkDesaturatedBlue;
+    box-shadow: rgba(2, 2, 22, 0.6) 0px 7px 29px 0px;
+  }
+  .filterTodos {
+    background-color: $VeryDarkDesaturatedBlue;
+    .filterActive {
+      color: $BrightBlue;
+    }
+  }
+  .mobile-card {
+    box-shadow: rgba(2, 2, 22, 0.6) 0px 7px 29px 0px;
+  }
+}

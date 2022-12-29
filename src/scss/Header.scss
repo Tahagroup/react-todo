@@ -1,0 +1,20 @@
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding-bottom: 20px;
+  width: 100%;
+
+  max-width: 450px;
+}
+.appName {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 5px;
+}
+.toggleSwitch {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+}

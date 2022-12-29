@@ -1,0 +1,63 @@
+@import "colors";
+
+.draggable {
+  border-bottom: 1px solid $VeryLightGrayishBlue;
+  width: 100%;
+  max-width: 450px;
+  cursor: move;
+  .todoWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    height: 20px;
+    .todotext {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .checkBox {
+      background: $CheckBackground;
+      padding: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .undone-circle {
+      padding: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid hsl(234, 11%, 52%);
+      cursor: pointer;
+    }
+    .line-through {
+      text-decoration: line-through;
+      color: lightgray;
+    }
+
+    .deleteCross {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  &.dragging {
+    background-color: hsl(232, 21%, 86%);
+  }
+}
+.draggable:last-child {
+  border-bottom: none;
+}
+
+.draggable.dark {
+  border-bottom: 1px solid $DarkGrayishBlue;
+  color: $LightGrayishBlue;
+  .todoWrapper {
+    .line-through {
+      color: $DarkGrayishBlue;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@import "colors";
+@import "desktop";
+
+.todoForm {
+  width: 250px;
+  max-width: 250px;
+  @include desktop {
+    width: 403px;
+    max-width: 410px;
+  }
+  .todoInput {
+    width: 250px;
+    max-width: 250px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px;
+    padding-left: 40px;
+    font-family: "Josefin Sans";
+    border: 1px #bbb solid;
+    margin-bottom: 20px;
+    &::placeholder {
+      font-size: 12px;
+    }
+    &:focus {
+      // border: none;
+      outline: none;
+    }
+    @include desktop {
+      width: 403px;
+      max-width: 410px;
+    }
+  }
+  .empty-circle {
+    padding: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid hsl(234, 11%, 52%);
+    position: absolute;
+    top: 60px;
+    left: 20px;
+  }
+  // dark mode
+  .todoInput.dark {
+    border: 1px $VeryDarkDesaturatedBlue solid;
+    color: $DarkGrayishBlue;
+    background-color: $VeryDarkDesaturatedBlue;
+  }
+}

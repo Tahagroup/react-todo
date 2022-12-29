@@ -1,0 +1,49 @@
+@import "desktop";
+@import "colors";
+
+.App {
+  max-width: 300px;
+  padding: 10px;
+  font-size: 14px;
+  position: absolute;
+  top: 70px;
+  margin: auto;
+  left: 48%;
+  margin-left: -150px;
+  @include desktop {
+    max-width: 450px;
+    left: 45%;
+  }
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 30%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.background__Desktop-light {
+  background-image: url("../../public/bg-desktop-light.jpg");
+}
+.background__Desktop-dark {
+  background-image: url("../../public/bg-desktop-dark.jpg");
+}
+.background__Mobile-light {
+  background-image: url("../../public/bg-mobile-light.jpg");
+}
+.background__Mobile-dark {
+  background-image: url("../../public/bg-mobile-dark.jpg");
+}
+.color__background {
+  width: 100vw;
+  height: 100vh;
+}
+.color__background-light {
+  background-color: $VeryLightGrayishBlue;
+}
+.color__background-dark {
+  background-color: $VeryDarkBlue;
+}

@@ -88,6 +88,7 @@ function Todos() {
           Completed
         </div>
       </div>
+      <div className="drag-helper">drag and drop to reorder list</div>
     </div>
   );
 }

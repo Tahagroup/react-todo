@@ -2,25 +2,25 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { TodoContext } from "../context/TodoContext";
 
-function findClosestElement(
-  draggableElements: any[],
-  YpositionOfMouse: number
-): HTMLElement {
-  const closestElement = draggableElements.reduce(
-    function (closest, child) {
-      const box = child.getBoundingClientRect();
-      // offset from elements center: negative means upper than element
-      const offset: number = YpositionOfMouse - box.top - box.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    },
-    { offset: Number.MIN_SAFE_INTEGER }
-  );
-  return closestElement.element;
-}
+// function findClosestElement(
+//   draggableElements: any[],
+//   YpositionOfMouse: number
+// ): HTMLElement {
+//   const closestElement = draggableElements.reduce(
+//     function (closest, child) {
+//       const box = child.getBoundingClientRect();
+//       // offset from elements center: negative means upper than element
+//       const offset: number = YpositionOfMouse - box.top - box.height / 2;
+//       if (offset < 0 && offset > closest.offset) {
+//         return { offset: offset, element: child };
+//       } else {
+//         return closest;
+//       }
+//     },
+//     { offset: Number.MIN_SAFE_INTEGER }
+//   );
+//   return closestElement.element;
+// }
 
 interface TodoTypes {
   todoData: TodoType;

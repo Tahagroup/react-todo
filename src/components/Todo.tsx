@@ -36,6 +36,9 @@ function Todo({ todoData }: TodoTypes) {
   function dragStartHandler(event: React.DragEvent) {
     (event.target as HTMLElement).classList.add("dragging");
   }
+  function touchStartHandler(event: React.TouchEvent) {
+    (event.target as HTMLElement).classList.add("dragging");
+  }
 
   // dragOver
   // function dragOverHandler(event: React.DragEvent) {
@@ -85,13 +88,48 @@ function Todo({ todoData }: TodoTypes) {
     );
     (event.target as HTMLElement).classList.remove("dragging");
   }
+  ///////////////////////////////////
+  function touchEndHandler(event: React.TouchEvent) {
+    // console.log(event.target);
 
+    const draggableElements = Array.from(
+      document.querySelectorAll(".draggable:not(.dragging)")
+    );
+    const closestElement = draggableElements.reduce(
+      function (closest, child) {
+        const box = child.getBoundingClientRect();
+        const offset: number =
+          event.changedTouches[0].clientY - box.top - box.height;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.MIN_SAFE_INTEGER, element: draggableElements.pop() }
+    );
+
+    nextElementId = closestElement.element?.getAttribute("data-id")!;
+    // replace current element with selected one:
+    changeTodosPosition(
+      //#TODO: get parent instead of inside element
+      (event.currentTarget as HTMLElement)!.getAttribute("data-id")!,
+      nextElementId
+    );
+    (event.target as HTMLElement).classList.remove("dragging");
+  }
+
+  function dragOverHandler(event: React.DragEvent) {
+    event.preventDefault();
+  }
   return (
     <div
       draggable
+      onTouchStart={touchStartHandler}
       onDragStart={dragStartHandler}
       onDragEnd={dragEndHandler}
-      //  onDragOver={dragOverHandler}
+      onTouchEnd={touchEndHandler}
+      onDragOver={dragOverHandler}
       className={`draggable ${themeContext?.mode === "dark" ? "dark" : ""}`}
       data-id={todoData.id}
     >

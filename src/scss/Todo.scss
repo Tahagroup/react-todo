@@ -5,15 +5,21 @@
   width: 100%;
   max-width: 450px;
   cursor: move;
+  word-wrap: break-word;
   .todoWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px;
-    height: 20px;
+    // height: 20px;
+    max-width: 450px;
+
     .todotext {
-      flex: 1;
       margin-left: 20px;
+      margin-right: auto; // or flex: 1;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      height: fit-content;
     }
     .checkBox {
       background: $CheckBackground;
@@ -30,6 +36,7 @@
       border-radius: 50%;
       border: 1px solid hsl(234, 11%, 52%);
       cursor: pointer;
+      flex-shrink: 0;
     }
     .line-through {
       text-decoration: line-through;

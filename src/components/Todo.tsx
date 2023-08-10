@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { BrightnessModes, ThemeContext } from "../context/ThemeContext";
 import { TodoContext } from "../context/TodoContext";
+import { TodoType } from "../types/Types";
 
 // function findClosestElement(
 //   draggableElements: any[],
@@ -27,7 +28,6 @@ interface TodoTypes {
 }
 function Todo({ todoData }: TodoTypes) {
   const themeContext = useContext(ThemeContext);
-
   const removeTodoHandler = useContext(TodoContext)!.removeTodoHandler;
   const ToggleTodoHandler = useContext(TodoContext)!.ToggleTodoHandler;
   const changeTodosPosition = useContext(TodoContext)!.changeTodosPosition;
@@ -40,31 +40,12 @@ function Todo({ todoData }: TodoTypes) {
     (event.target as HTMLElement).classList.add("dragging");
   }
 
-  // dragOver
-  // function dragOverHandler(event: React.DragEvent) {
-  //   event.preventDefault();
-  //   nextElementId = findClosestElement(
-  //     Array.from(document.querySelectorAll(".draggable:not(.dragging)")),
-  //     event.clientY
-  //   )?.getAttribute("data-id")!;
-
-  //   // handle append to last:
-  //   if (nextElementId === undefined) {
-  //     const lastElementId: string = Array.from(
-  //       document.querySelectorAll(".draggable")
-  //     )
-  //       .pop()!
-  //       .getAttribute("data-id")!;
-  //     nextElementId = lastElementId;
-  //   }
-  //   nextElementId = "4";
-  // }
-
   // dragEnd
   function dragEndHandler(event: React.DragEvent) {
     const draggableElements = Array.from(
       document.querySelectorAll(".draggable:not(.dragging)")
     );
+    draggableElements.forEach((element) => element.classList.remove("drag-target"));
     const closestElement = draggableElements.reduce(
       function (closest, child) {
         const box = child.getBoundingClientRect();
@@ -88,10 +69,8 @@ function Todo({ todoData }: TodoTypes) {
     );
     (event.target as HTMLElement).classList.remove("dragging");
   }
-  ///////////////////////////////////
-  function touchEndHandler(event: React.TouchEvent) {
-    // console.log(event.target);
 
+  function touchEndHandler(event: React.TouchEvent) {
     const draggableElements = Array.from(
       document.querySelectorAll(".draggable:not(.dragging)")
     );
@@ -120,17 +99,25 @@ function Todo({ todoData }: TodoTypes) {
   }
 
   function dragOverHandler(event: React.DragEvent) {
+    event.currentTarget.classList.add("drag-target");
+    event.preventDefault();
+  }
+  function dragLeaveHandler(event: React.DragEvent) {
+    event.currentTarget.classList.remove("drag-target");
     event.preventDefault();
   }
   return (
     <div
       draggable
       onTouchStart={touchStartHandler}
+      onTouchEnd={touchEndHandler}
       onDragStart={dragStartHandler}
       onDragEnd={dragEndHandler}
-      onTouchEnd={touchEndHandler}
       onDragOver={dragOverHandler}
-      className={`draggable ${themeContext?.mode === "dark" ? "dark" : ""}`}
+      onDragLeave={dragLeaveHandler}
+      className={`draggable ${
+        themeContext?.mode === BrightnessModes.dark ? BrightnessModes.dark : ""
+      }`}
       data-id={todoData.id}
     >
       <div className="todoWrapper">

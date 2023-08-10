@@ -1,3 +1,5 @@
+import { BrightnessModes } from "../context/ThemeContext";
+
 interface TodoType {
   id: string;
   text: string;
@@ -15,6 +17,6 @@ interface TodoContextType {
 }
 
 interface ThemeContextType {
-  mode: string;
+  mode: BrightnessModes;
   changeTheme: () => void;
 }

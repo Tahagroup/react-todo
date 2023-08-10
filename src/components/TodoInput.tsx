@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { BrightnessModes, ThemeContext } from "../context/ThemeContext";
 import { TodoContext } from "../context/TodoContext";
+import { TodoContextType } from "../types/Types";
 
 function TodoInput() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -23,7 +24,9 @@ function TodoInput() {
       <div className="empty-circle"></div>
       <input
         type="text"
-        className={`todoInput ${themeContext?.mode === "dark" && "dark"}`}
+        className={`todoInput ${
+          themeContext?.mode === BrightnessModes.dark && BrightnessModes.dark
+        }`}
         ref={inputRef}
         placeholder="Create a new todo"
       />

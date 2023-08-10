@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
+import { ThemeContextType } from "../types/Types";
 
 export const ThemeContext = React.createContext<ThemeContextType | null>(null);
 
-// export const ThemeContext = React.createContext({
-//   mode: "a",
-//   changeTheme: () => {},
-// });
-//////////////////////////////////////////////////////////////
-const ThemeContexProvider = (props: {
-  children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
-}) => {
-  // Initial state and function declarations will be here:
-  const [mode, setMode] = useState("light");
+export enum BrightnessModes {
+  light = "light",
+  dark = "dark",
+}
+
+const ThemeContexProvider = (props: PropsWithChildren) => {
+  const [mode, setMode] = useState(BrightnessModes.light);
   const changeThemeHandler = () => {
     document.documentElement.setAttribute("data-theme", "dark");
     setMode((prevTheme) => {
       if (prevTheme === null) {
-        prevTheme = "light";
+        prevTheme = BrightnessModes.light;
       }
-      return prevTheme === "light" ? "dark" : "light";
+      return prevTheme === BrightnessModes.light
+        ? BrightnessModes.dark
+        : BrightnessModes.light;
     });
   };
   return (

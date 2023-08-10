@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { BrightnessModes, ThemeContext } from "../context/ThemeContext";
 
 function Header() {
   const themeContext = useContext(ThemeContext);
@@ -14,7 +14,9 @@ function Header() {
     <div className="headerWrapper">
       <div className="appName">TODO</div>
       <img
-        src={mode === "light" ? "./icon-moon.svg" : ".//icon-sun.svg"}
+        src={
+          mode === BrightnessModes.light ? "./icon-moon.svg" : "./icon-sun.svg"
+        }
         alt="toggle"
         onClick={toggleThemeHandler}
         className="toggleSwitch"

@@ -2,13 +2,11 @@ $large-width: 1000px;
 
 @mixin desktop {
   @media (min-width: $large-width) {
-    //  takes a content block using curly braces:
     @content;
   }
 }
 @mixin mobile {
   @media (max-width: $large-width) {
-    //  takes a content block using curly braces:
     @content;
   }
 }

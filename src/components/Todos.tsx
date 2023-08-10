@@ -1,10 +1,17 @@
 import React, { useContext, useState, MouseEvent } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { BrightnessModes, ThemeContext } from "../context/ThemeContext";
 import { TodoContext } from "../context/TodoContext";
 import Todo from "./Todo";
+import { TodoType } from "../types/Types";
+
+enum TodoStates {
+  All = "All",
+  Active = "Active",
+  Completed = "Completed",
+}
 
 function Todos() {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState(TodoStates.All);
   const todoContext = useContext(TodoContext);
   const themeContext = useContext(ThemeContext);
   const TodoData = todoContext!.todos;
@@ -12,30 +19,35 @@ function Todos() {
 
   function filterChangeHandler(event: MouseEvent<HTMLDivElement>) {
     const selectedFilter = (event.target! as HTMLDivElement).textContent!;
-    setActiveFilter(selectedFilter);
+    setActiveFilter(selectedFilter as unknown as TodoStates);
   }
 
-  let filteredTodos: TodoType[] | undefined = [];
+  let filteredTodos: TodoType[] = [];
   switch (activeFilter) {
-    case "All":
+    case TodoStates.All:
       filteredTodos = TodoData;
-      activeClassChanger("All");
+      activeClassChanger(TodoStates.All);
       break;
-    case "Active":
-      filteredTodos = TodoData.filter((todo) => todo.done === false);
-      activeClassChanger("Active");
+    case TodoStates.Active:
+      filteredTodos = TodoData.filter((todo: TodoType) => todo.done === false);
+      activeClassChanger(TodoStates.Active);
       break;
 
-    case "Completed":
-      filteredTodos = TodoData.filter((todo) => todo.done === true);
-      activeClassChanger("Completed");
+    case TodoStates.Completed:
+      filteredTodos = TodoData.filter((todo: TodoType) => todo.done === true);
+      activeClassChanger(TodoStates.Completed);
+      break;
+
+    default:
+      filteredTodos = TodoData;
+      activeClassChanger(TodoStates.All);
       break;
   }
-  function activeClassChanger(filter: string) {
+  function activeClassChanger(filter: TodoStates) {
     document.querySelectorAll(".filter")!.forEach((element) => {
       element.classList.remove("filterActive");
     });
-    // add class for both mobile & desltop filters
+    // add class for both mobile & desktop filters
     document.querySelectorAll(`.${filter}`)[0]?.classList.add("filterActive");
     document.querySelectorAll(`.${filter}`)[1]?.classList.add("filterActive");
   }
@@ -45,14 +57,15 @@ function Todos() {
   ));
 
   return (
-    <div className={`cardWrapper ${themeContext?.mode === "dark" && "dark"}`}>
+    <div
+      className={`cardWrapper ${
+        themeContext?.mode === BrightnessModes.dark && BrightnessModes.dark
+      }`}
+    >
       <div className="itemsWrapper">
-        {/* Todos */}
         {todosToRender}
-        {/* summary: */}
         <div className="done-summary">
           <div>{remaining + " items left"} </div>
-          {/*  */}
           <div className="filterTodos desktop-only">
             <div
               className="filter All filterActive"
@@ -67,7 +80,6 @@ function Todos() {
               Completed
             </div>
           </div>
-          {/*  */}
           <div
             style={{ cursor: "pointer" }}
             onClick={todoContext?.clearAllCompleted}
